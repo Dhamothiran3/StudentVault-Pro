@@ -1,6 +1,8 @@
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import "./Login.css";
+import { signInWithEmailAndPassword } from "firebase/auth";
+import { auth } from "../firebase";
 
 function Login() {
   const navigate = useNavigate();
@@ -18,13 +20,18 @@ function Login() {
       return;
     }
     setError("");
-    setIsLoading(true);
+setIsLoading(true);
 
-    // Simulate smooth login transition before navigating to dashboard
-    setTimeout(() => {
-      setIsLoading(false);
-      navigate("/dashboard");
-    }, 600);
+signInWithEmailAndPassword(auth, email, password)
+  .then(() => {
+    setIsLoading(false);
+    navigate("/dashboard");
+  })
+  .catch((error) => {
+    setIsLoading(false);
+    setError("Invalid email or password");
+    console.log(error);
+  });
   };
 
   return (
