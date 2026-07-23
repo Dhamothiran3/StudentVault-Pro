@@ -1,6 +1,8 @@
 import { useState, useRef } from "react";
 import { Link } from "react-router-dom";
 import "./Upload.css";
+import { collection, addDoc } from "firebase/firestore";
+import { db, auth } from "../firebase";
 
 function Upload() {
   const [isDragging, setIsDragging] = useState(false);
